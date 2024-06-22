@@ -1,8 +1,27 @@
 import { response } from "express";
 import Movie from "../models/movie.model.js";
 
-export const MovieIndex = (req, res) => {
-    res.send("Get all movie lists");
+export const MovieIndex = async (req, res) => {
+    try {
+        const movies = await Movie.find();
+        res.json(movies)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+};
+
+export const MovieDetail = async (req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.id);
+        if (movie == null) {
+            return res.status(404).json({ message: "Cannot find movie" })
+        }
+        else {
+            res.json(movie)
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
 };
 
 export const MovieCreate = async (req, res) => {
@@ -28,8 +47,37 @@ export const MovieCreate = async (req, res) => {
     // return res.json(req.body);  //Need to add data understanding middleware app.use(express.json())
 };
 
-export const MovieUpdate = (req, res) => {
-    res.send("Update a movie");
+export const MovieUpdate = async (req, res) => {
+
+    try {
+        const updatedMovie = await Movie.findOneAndUpdate(
+            { _id: req.params.id },
+            {
+                title: req.body.title,
+                desc: req.body.desc
+            },
+            {
+                new: true,
+            }
+        );
+        res.status(200).json(updatedMovie);
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+
+    //Validate the user input
+    // if (req.body.title != null) {
+    //     res.movie.title = req.body.title;
+    // }
+    // if (req.body.desc != null) {
+    //     res.movie.desc = req.body.desc;
+    // }
+    // try {
+    //     const updatedMovie = await res.movie.save()
+    //     res.json(updatedMovie)
+    // } catch (err) {
+    //     res.status(400).json({ message: err.message })
+    // }
 };
 
 export const MovieDelete = (req, res) => {

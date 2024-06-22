@@ -18,10 +18,4 @@ Provide a movie api for react js app.
 2. NoSQL - (MongoDB)
 
 
-rkpranav11
-HGV5ejmRQkwQzQ4I
-
-103.226.186.251
-
-
-mongodb+srv://rkpranav11:HGV5ejmRQkwQzQ4I@cluster0.dftb14b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+API Link : https://movieareas-api-521j.onrender.com/

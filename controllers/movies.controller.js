@@ -1,9 +1,15 @@
+import { response } from "express";
+
 export const MovieIndex = (req, res) => {
     res.send("Get all movie lists");
 };
 
 export const MovieCreate = (req, res) => {
-    res.send("Create a movie");
+    //Create the movie info.
+    //Structure - id, title, desc
+    console.log(req.body);
+
+    return res.json(req.body);  //Need to add data understanding middleware app.use(express.json())
 };
 
 export const MovieUpdate = (req, res) => {
